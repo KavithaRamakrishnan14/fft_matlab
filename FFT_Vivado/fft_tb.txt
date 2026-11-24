@@ -1,0 +1,105 @@
+
+`timescale 1ns/1ps
+
+module tb_fft;
+
+    reg [3:0] a;
+    reg [3:0] b;
+    reg [3:0] twiddle_in;
+
+    reg data_clk;
+    reg fft_clk;
+    reg en;
+    reg rst;
+
+    wire [3:0] bout1;
+    wire [3:0] bout2;
+
+    wire read;
+    wire dpram_clk;
+
+    // DUT
+    fft dut (
+        .a(a),
+        .b(b),
+        .twiddle_in(twiddle_in),
+        .data_clk(data_clk),
+        .fft_clk(fft_clk),
+        .en(en),
+        .rst(rst),
+        .bout1(bout1),
+        .bout2(bout2),
+        .read(read),
+        .dpram_clk(dpram_clk)
+    );
+
+    // Data clock: 20 ns period
+    initial begin
+        data_clk = 0;
+        forever #10 data_clk = ~data_clk;
+    end
+
+    // FFT clock: 10 ns period
+    initial begin
+        fft_clk = 0;
+        forever #5 fft_clk = ~fft_clk;
+    end
+
+    // Stimulus
+    initial begin
+        a = 0;
+        b = 0;
+        twiddle_in = 0;
+        en = 0;
+        rst = 1;
+
+        #20;
+        rst = 0;
+        en = 1;
+
+        // Test 1
+        a = 4'd2;
+        b = 4'd1;
+        twiddle_in = 4'd1;
+        #20;
+
+        // Test 2
+        a = 4'd4;
+        b = 4'd3;
+        twiddle_in = 4'd2;
+        #20;
+
+        // Test 3
+        a = 4'd7;
+        b = 4'd5;
+        twiddle_in = 4'd3;
+        #20;
+
+        // Test 4
+        a = 4'd8;
+        b = 4'd2;
+        twiddle_in = 4'd4;
+        #20;
+
+        // Test 5
+        a = 4'd9;
+        b = 4'd6;
+        twiddle_in = 4'd1;
+        #20;
+
+        en = 0;
+        #20;
+
+        $finish;
+    end
+
+    // Monitor
+    initial begin
+        $monitor(
+            "Time=%0t | rst=%b | en=%b | a=%d | b=%d | twiddle=%d | bout1=%d | bout2=%d | read=%b | dpram_clk=%b",
+            $time, rst, en, a, b, twiddle_in,
+            bout1, bout2, read, dpram_clk
+        );
+    end
+
+endmodule
