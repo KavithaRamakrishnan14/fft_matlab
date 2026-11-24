@@ -1,0 +1,55 @@
+
+# =========================================================
+# FFT SIMPLIFIED TOP MODULE - BASYS 3 PIN CONSTRAINTS
+# =========================================================
+
+# -------------------------
+# INPUT: a[3:0] - SW0 to SW3
+# -------------------------
+set_property PACKAGE_PIN V17 [get_ports {a[0]}]
+set_property PACKAGE_PIN V16 [get_ports {a[1]}]
+set_property PACKAGE_PIN W16 [get_ports {a[2]}]
+set_property PACKAGE_PIN W17 [get_ports {a[3]}]
+
+# -------------------------
+# INPUT: b[3:0] - SW4 to SW7
+# -------------------------
+set_property PACKAGE_PIN W15 [get_ports {b[0]}]
+set_property PACKAGE_PIN V15 [get_ports {b[1]}]
+set_property PACKAGE_PIN W14 [get_ports {b[2]}]
+set_property PACKAGE_PIN W13 [get_ports {b[3]}]
+
+# -------------------------
+# INPUT: twiddle_in[3:0] - SW8 to SW11
+# -------------------------
+set_property PACKAGE_PIN V2 [get_ports {twiddle_in[0]}]
+set_property PACKAGE_PIN T3 [get_ports {twiddle_in[1]}]
+set_property PACKAGE_PIN T2 [get_ports {twiddle_in[2]}]
+set_property PACKAGE_PIN R3 [get_ports {twiddle_in[3]}]
+
+# -------------------------
+# ENABLE - BTN0
+# -------------------------
+set_property PACKAGE_PIN U18 [get_ports {en}]
+
+# -------------------------
+# RESET - BTN1
+# -------------------------
+set_property PACKAGE_PIN T18 [get_ports {rst}]
+
+# -------------------------
+# I/O STANDARD
+# -------------------------
+set_property IOSTANDARD LVCMOS33 [get_ports {a[*]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {b[*]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {twiddle_in[*]}]
+
+set_property IOSTANDARD LVCMOS33 [get_ports {en}]
+set_property IOSTANDARD LVCMOS33 [get_ports {rst}]
+
+# =========================================================
+# CLOCKS
+# =========================================================
+# Add clock pin assignments only after selecting
+# the actual clock source and architecture.
+# =========================================================
